@@ -2,7 +2,7 @@
   "name": "nuxt-demo",
   "version": "1.0.0",
   "description": "My epic Nuxt.js project",
-  "author": "xuryunquan",
+  "author": "xueyunquan",
   "private": true,
   "scripts": {
     "dev": "nuxt",

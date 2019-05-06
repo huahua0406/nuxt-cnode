@@ -20,3 +20,10 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+
+参考：
+// https://www.jianshu.com/p/840169ba92e6
+// https://segmentfault.com/a/1190000013139139
+// https://zh.nuxtjs.org/faq/host-port/
+// https://www.cnblogs.com/nightstarsky/p/10552176.html
+// https://segmentfault.com/q/1010000017898654

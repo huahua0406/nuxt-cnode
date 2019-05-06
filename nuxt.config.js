@@ -3,10 +3,10 @@ import pkg from './package'
 // global.HTMLElement = typeof window === 'undefined' ? Object : window.HTMLElement
 export default {
     mode: 'universal',
-    // server: {
-    //     port: 3001, // default: 3000
-    //     host: '0.0.0.0', // default: localhost
-    // },
+    server: {
+        port: 3100, // default: 3000
+        host: '0.0.0.0', // default: localhost
+    },
     /*
      ** Headers of the page
      */
@@ -26,29 +26,27 @@ export default {
         ],
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     },
-    // 全局 CSS https://zh.nuxtjs.org/examples/global-css
-    css: [
-        '~/css/main.css'
-    ],
-
+    // 进度条颜色
+    loading: { color: '#409eff' },
     /*
      ** Customize the progress-bar color
      */
-    // 颜色条
-    loading: { color: '#409eff' },
-    // 自定义loading
     // loading: '~/components/loading.vue',
     /*
      ** Global CSS
+     ** https://zh.nuxtjs.org/examples/global-css
      */
-    css: ['element-ui/lib/theme-chalk/index.css'],
+    css: [
+        'element-ui/lib/theme-chalk/index.css',
+        '~/assets/css/global.css',
+        '~assets/css/normailze.css'
+    ],
 
     /*
      ** Plugins to load before mounting the App
      */
     plugins: [
         '@/plugins/element-ui',
-        // https://axios.nuxtjs.org/extend
         '~/plugins/axios'
     ],
 
@@ -56,8 +54,7 @@ export default {
      ** Nuxt.js modules
      */
     modules: [
-        // https://axios.nuxtjs.org/setup
-        '@nuxtjs/axios'
+        '@nuxtjs/axios'  // https://axios.nuxtjs.org/setup
     ],
 
     axios: {
@@ -68,7 +65,7 @@ export default {
         // prefix: '/api/v2', // 开启代理前缀
         // credentials: true // 表示跨域请求时是否需要使用凭证
     },
-
+    // https://zh.nuxtjs.org/faq/http-proxy
     proxy: {
         '/api': {
             target: 'https://cnodejs.org/api/v1', // 代理地址

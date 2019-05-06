@@ -8,7 +8,7 @@
                         <img alt="logo" src="//static2.cnodejs.org/public/images/cnodejs_light.svg">
                     </a>
                     <ul class="nav">
-                        <li :key="nav.path" v-for="nav in tabs" :class="nav.path===currentTab?'active':''">
+                        <li :key="nav.path" v-for="nav in tabs" :class="nav.path===$store.state.tab?'active':''">
                             <nuxt-link :to="'/?tab='+nav.path" role="button">{{nav.name}}</nuxt-link>
                         </li>
                     </ul>
@@ -50,13 +50,12 @@
                         path: 'share'
                     }
                 ],
-                currentTab:this.$route.query.tab
             }
         },
         watch: {
             '$route': function() {
                 // console.log('tab has changed.')
-                this.currentTab = this.$route.query.tab
+                this.$store.commit('changeTab',this.$route.query.tab)
             }
         }
     }

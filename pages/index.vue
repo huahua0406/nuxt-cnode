@@ -28,6 +28,7 @@
     // import Logo from '~/components/Logo.vue'
 
     export default {
+        // watchQuery: ['page'],
         // components: {
         //     Logo
         // },
@@ -73,7 +74,7 @@
         },
         mounted() {
             // console.log('mounted');
-            this.getData()
+            // this.getData()
         },
         watch: {
             $route: function() {
@@ -93,31 +94,28 @@
                 ]
             }
         },
-        //请求:https://zh.nuxtjs.org/guide/async-data
-        asyncData({ app, query }) {
-            // console.log(query)
-            // // 根据不用的标签获取不同的数据，最后返回话题列表。
-            // return app.$axios.$get(`/topics?tab=${query.tab || 'all'}`).then(res => {
-            //   return {list: res.data}
-            // })
+        // asyncData方法是在组件初始化前被调用的
+        // https://zh.nuxtjs.org/guide/async-data
+        async asyncData({ app, store, query }) {
+            // console.log(app,store,query)
+            let { data } = await app.$axios.$get(`/topics?tab=${store.state.tab || 'all'}&page=${store.state.page}&limit=${store.state.limit}`)
+            return {list: data}
         },
-        // https://zh.nuxtjs.org/api/pages-fetch/#fetch-%E6%96%B9%E6%B3%95
-        fetch ({ store, params }) {
-            // return axios.get('http://my-api/stars')
-            // .then((res) => {
-            //     store.commit('setStars', res.data)
-            // })
+        // https://zh.nuxtjs.org/api/pages-fetch
+        async fetch ({ app, store, query }) {
+            // let { data } = await axios.get('http://my-api/stars')
+            // store.commit('setStars', data)
         },
         methods: {
-            getData() {
-                this.$axios.$get(`/topics?tab=${this.$route.query.tab || 'all'}&page=${this.page}&limit=${this.limit}`).then(res => {
-                    // return {list: res.data}
-                    this.list = res.data
-                })
+            async getData() {
+                let { data } = await this.$axios.$get(`/topics?tab=${this.$store.state.tab || 'all'}&page=${this.$store.state.page}&limit=${this.$store.state.limit}`)
+                // return {list: data}
+                this.list = data
             },
             handleCurrentChange(val) {
                 console.log(val)
                 this.page = val
+                this.$store.commit('changePage',val)
                 this.getData()
             }
         }
