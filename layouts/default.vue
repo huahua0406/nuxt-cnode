@@ -21,7 +21,7 @@
         <nuxt/>
         <!-- 公共底部组件 -->
         <footer class="footer">
-            <h2>footer</h2>
+            <h2><a href="https://github.com/huahua0406/nuxt-demo">github地址:https://github.com/huahua0406/nuxt-demo</a></h2>
         </footer>
     </div>
 </template>
@@ -78,14 +78,12 @@
         margin: auto;
         padding: 5px;
     }
-
     .header-inner .header-container {
         width: 100%;
         min-width: 960px;
         margin: 0 auto;
         max-width: 1400px;
     }
-
     .logo {
         display: block;
         float: left;
@@ -121,7 +119,6 @@
         background: #80bd01;
         color: #fff;
     }
-
     .footer {
         width: 100%;
         height: 50px;
