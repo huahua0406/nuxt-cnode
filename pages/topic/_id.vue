@@ -1,5 +1,5 @@
 <template>
-    <div class="topic-detail" id="main">
+    <div class="container topic-detail">
         <el-card class="box-card">
             <div class="topic-header">
                 <span class="title">{{detail.title}}</span>
@@ -31,7 +31,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .topic-header {
         padding: 10px;
         background-color: #ffff;

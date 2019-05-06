@@ -3,13 +3,15 @@
         <!-- 公共头部组件 -->
         <header class="header">
             <div class="header-inner">
-                <div class="container">
+                <div class="header-container">
                     <a class="logo" href="/?tab=all">
                         <img alt="logo" src="//static2.cnodejs.org/public/images/cnodejs_light.svg">
                     </a>
                     <ul class="nav">
-                        <li :key="nav.path" v-for="nav in tabs" :class="nav.path===$store.state.tab?'active':''">
+                        <li :class="nav.path===$store.state.tab?'active':''" :key="nav.path" v-for="nav in tabs">
                             <nuxt-link :to="'/?tab='+nav.path" role="button">{{nav.name}}</nuxt-link>
+                            <!-- nuxt-link 走路由，只在client处理，要走server可以改为 <a :href="/test?tab=xxx">test</a> -->
+                            <!-- <a :href="'/?tab='+nav.path">{{nav.name}}</a> -->
                         </li>
                     </ul>
                 </div>
@@ -49,48 +51,19 @@
                         name: '分享',
                         path: 'share'
                     }
-                ],
+                ]
             }
         },
         watch: {
-            '$route': function() {
+            $route: function() {
                 // console.log('tab has changed.')
-                this.$store.commit('changeTab',this.$route.query.tab)
+                this.$store.commit('changeTab', this.$route.query.tab)
             }
         }
     }
 </script>
 
-<style>
-    html {
-        font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        font-size: 16px;
-        word-spacing: 1px;
-        -ms-text-size-adjust: 100%;
-        -webkit-text-size-adjust: 100%;
-        -moz-osx-font-smoothing: grayscale;
-        -webkit-font-smoothing: antialiased;
-        box-sizing: border-box;
-
-        background-color: #e1e1e1;
-        font-size: 14px;
-        word-break: break-word;
-        line-height: 20px;
-        color: #333;
-    }
-
-    *,
-    *:before,
-    *:after {
-        box-sizing: border-box;
-        margin: 0;
-    }
-
-    a {
-        color: #08c;
-        text-decoration: none;
-    }
-
+<style scoped>
     .header {
         margin-bottom: 0;
         z-index: 9;
@@ -106,7 +79,7 @@
         padding: 5px;
     }
 
-    .header-inner .container {
+    .header-inner .header-container {
         width: 100%;
         min-width: 960px;
         margin: 0 auto;
@@ -144,9 +117,9 @@
         color: #ccc;
         text-decoration: none;
     }
-    .nav > li.active > a{
-      background: #80bd01;
-      color: #fff;
+    .nav > li.active > a {
+        background: #80bd01;
+        color: #fff;
     }
 
     .footer {
@@ -156,33 +129,4 @@
         background: #fff;
         text-align: center;
     }
-
-    /* .button--green {
-        display: inline-block;
-        border-radius: 4px;
-        border: 1px solid #3b8070;
-        color: #3b8070;
-        text-decoration: none;
-        padding: 10px 30px;
-    }
-
-    .button--green:hover {
-        color: #fff;
-        background-color: #3b8070;
-    }
-
-    .button--grey {
-        display: inline-block;
-        border-radius: 4px;
-        border: 1px solid #35495e;
-        color: #35495e;
-        text-decoration: none;
-        padding: 10px 30px;
-        margin-left: 15px;
-    }
-
-    .button--grey:hover {
-        color: #fff;
-        background-color: #35495e;
-    } */
 </style>

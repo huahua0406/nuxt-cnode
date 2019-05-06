@@ -1,5 +1,5 @@
 <template>
-    <div id="main">
+    <div class="container">
         <el-card class="box-card">
             <h2>{{userInfo.loginname}}</h2>
             <img :alt="userInfo.loginname" :src="userInfo.avatar_url">

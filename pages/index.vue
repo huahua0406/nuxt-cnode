@@ -1,5 +1,5 @@
 <template>
-    <section id="main">
+    <section class="container">
         <el-card class="box-card">
             <div :key="topic.id" class="topic-item" v-for="topic in list">
                 <p class="topic-info">
@@ -9,9 +9,13 @@
                         </nuxt-link>
                     </span>
                     <span class="replay-count">
-                        <span class="count_of_replies" title="回复数">{{topic.reply_count}}</span><!--
-                        --><span class="count_seperator">/</span><!--
-                        --><span class="count_of_visits" title="点击数">{{topic.visit_count}}</span>
+                        <span class="count_of_replies" title="回复数">{{topic.reply_count}}</span>
+                        <!--
+                        -->
+                        <span class="count_seperator">/</span>
+                        <!--
+                        -->
+                        <span class="count_of_visits" title="点击数">{{topic.visit_count}}</span>
                     </span>
                     <el-tag size="small" type="success" v-if="topic.top">置顶</el-tag>
                     <el-tag size="small" v-else>{{topic.tab | tabtoName}}</el-tag>
@@ -28,7 +32,7 @@
     // import Logo from '~/components/Logo.vue'
 
     export default {
-        // watchQuery: ['page'],
+        watchQuery: ['page', 'tab'],
         // components: {
         //     Logo
         // },
@@ -97,50 +101,35 @@
         // asyncData方法是在组件初始化前被调用的
         // https://zh.nuxtjs.org/guide/async-data
         async asyncData({ app, store, query }) {
+            console.log('asyncdata')
             // console.log(app,store,query)
             let { data } = await app.$axios.$get(`/topics?tab=${store.state.tab || 'all'}&page=${store.state.page}&limit=${store.state.limit}`)
-            return {list: data}
+            return { list: data }
         },
         // https://zh.nuxtjs.org/api/pages-fetch
-        async fetch ({ app, store, query }) {
+        async fetch({ app, store, query }) {
             // let { data } = await axios.get('http://my-api/stars')
             // store.commit('setStars', data)
         },
         methods: {
             async getData() {
-                let { data } = await this.$axios.$get(`/topics?tab=${this.$store.state.tab || 'all'}&page=${this.$store.state.page}&limit=${this.$store.state.limit}`)
+                let { data } = await this.$axios.$get(
+                    `/topics?tab=${this.$store.state.tab || 'all'}&page=${this.$store.state.page}&limit=${this.$store.state.limit}`
+                )
                 // return {list: data}
                 this.list = data
             },
             handleCurrentChange(val) {
                 console.log(val)
                 this.page = val
-                this.$store.commit('changePage',val)
+                this.$store.commit('changePage', val)
                 this.getData()
             }
         }
     }
 </script>
 
-<style>
-    html {
-        height: 100%;
-    }
-    body {
-        height: 100%;
-    }
-    #__nuxt,
-    #__layout,
-    #app {
-        height: 100%;
-    }
-    #main {
-        width: 90%;
-        max-width: 1400px;
-        min-width: 960px;
-        margin: 15px auto;
-        min-height: 400px;
-    }
+<style scoped>
     .topic-item {
         font-size: 14px;
         padding: 10px;
@@ -172,5 +161,6 @@
     img {
         max-width: 100%;
         height: auto;
+        background: #f5f5f5;
     }
 </style>
