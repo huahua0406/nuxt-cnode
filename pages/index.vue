@@ -9,13 +9,9 @@
                         </nuxt-link>
                     </span>
                     <span class="replay-count">
-                        <span class="count_of_replies" title="回复数">{{topic.reply_count}}</span>
-                        <!--
-                        -->
-                        <span class="count_seperator">/</span>
-                        <!--
-                        -->
-                        <span class="count_of_visits" title="点击数">{{topic.visit_count}}</span>
+                        <span class="count_of_replies" title="回复数">{{topic.reply_count}}</span><!--
+                        --><span class="count_seperator">/</span><!--
+                        --><span class="count_of_visits" title="点击数">{{topic.visit_count}}</span>
                     </span>
                     <el-tag size="small" type="success" v-if="topic.top">置顶</el-tag>
                     <el-tag size="small" v-else>{{topic.tab | tabtoName}}</el-tag>

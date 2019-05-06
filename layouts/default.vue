@@ -64,6 +64,8 @@
 </script>
 
 <style scoped>
+    /* HTML的footer置于页面最底部的方法 */
+    /* https://www.cnblogs.com/pinganzi/p/6383487.html */
     .header {
         margin-bottom: 0;
         z-index: 9;
@@ -121,9 +123,11 @@
     }
     .footer {
         width: 100%;
-        height: 50px;
-        line-height: 50px;
+        height: 100px;
+        line-height: 100px;
         background: #fff;
         text-align: center;
+        position:absolute;
+        bottom:0;
     }
 </style>
