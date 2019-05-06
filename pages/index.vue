@@ -79,6 +79,7 @@
         mounted() {
             // console.log('mounted');
             // this.getData()
+
         },
         watch: {
             $route: function() {
@@ -87,8 +88,11 @@
             }
         },
         head() {
+            let targetTab = this.tabs.filter(item=>{
+                return item.path == this.$store.state.tab
+            })
             return {
-                title: '首页  - ' + (this.$route.query.tab ? this.$route.query.tab : ''),
+                title: '首页  - ' + targetTab[0].name,
                 meta: [
                     {
                         hid: 'index',
