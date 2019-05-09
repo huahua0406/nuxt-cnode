@@ -10,7 +10,7 @@ export default function ({ $axios, redirect }) {
 
   // 返回回调
   $axios.onResponse(res => {
-      console.log(res);
+    //   console.log(res);
   })
 
   // 错误回调

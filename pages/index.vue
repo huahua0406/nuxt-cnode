@@ -19,7 +19,7 @@
                     <span class="last_active_time">最后回复：{{topic.last_reply_at.replace(/T/g,' ').replace(/\.[\d]{3}Z/,'')}}</span>
                 </p>
             </div>
-            <el-pagination :total="1000" @current-change="handleCurrentChange" background layout="prev, pager, next" style="margin-top:10px"></el-pagination>
+            <el-pagination :total="1000" @current-change="handleCurrentChange" :current-page="+$route.query.page||1" background layout="prev, pager, next" style="margin-top:10px"></el-pagination>
         </el-card>
     </section>
 </template>
@@ -28,7 +28,7 @@
     // import Logo from '~/components/Logo.vue'
 
     export default {
-        watchQuery: ['page', 'tab'],
+        watchQuery: ['page'],
         // components: {
         //     Logo
         // },
@@ -56,10 +56,9 @@
                         path: 'share'
                     }
                 ],
-                page: 1,
-                limit: 20,
-                list: [],
-                currentTab: '1211'
+                // page: 1,
+                // limit: 20,
+                // list: [],
             }
         },
         filters: {
@@ -74,13 +73,14 @@
         },
         mounted() {
             // console.log('mounted');
+            // ajax
             // this.getData()
-
         },
         watch: {
             $route: function() {
                 // console.log('$route has changed.')
-                this.getData()
+                // ajax
+                // this.getData()
             }
         },
         head() {
@@ -101,8 +101,8 @@
         // asyncData方法是在组件初始化前被调用的
         // https://zh.nuxtjs.org/guide/async-data
         async asyncData({ app, store, query }) {
-            console.log('asyncdata')
-            // console.log(app,store,query)
+            console.log('asyncData start')
+            console.log(JSON.stringify(query))
             let { data } = await app.$axios.$get(`/topics?tab=${store.state.tab || 'all'}&page=${store.state.page}&limit=${store.state.limit}`)
             return { list: data }
         },
@@ -112,6 +112,7 @@
             // store.commit('setStars', data)
         },
         methods: {
+            // ajax 无法服务端渲染
             async getData() {
                 let { data } = await this.$axios.$get(
                     `/topics?tab=${this.$store.state.tab || 'all'}&page=${this.$store.state.page}&limit=${this.$store.state.limit}`
@@ -121,9 +122,11 @@
             },
             handleCurrentChange(val) {
                 console.log(val)
-                this.page = val
+                this.page = val;
                 this.$store.commit('changePage', val)
-                this.getData()
+                window.location.href = '/?page='+val
+                // this.$router.push({name:'index',query:{page:val}})
+                // this.getData()
             }
         }
     }
