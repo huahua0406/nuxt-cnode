@@ -75,6 +75,12 @@
             // console.log('mounted');
             // ajax
             // this.getData()
+
+            // 自定义loading page
+            // this.$nextTick(() => {
+            //     this.$nuxt.$loading.start()
+            //     setTimeout(() => this.$nuxt.$loading.finish(), 1000)
+            // })
         },
         watch: {
             $route: function() {

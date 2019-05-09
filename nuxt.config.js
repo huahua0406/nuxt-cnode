@@ -27,11 +27,11 @@ export default {
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     },
     // 进度条颜色
-    loading: { color: '#409eff' },
+    // loading: { color: '#409eff' },
     /*
      ** Customize the progress-bar color
      */
-    // loading: '~/components/loading.vue',
+    loading: '~/components/loading.vue',
     /*
      ** Global CSS
      ** https://zh.nuxtjs.org/examples/global-css
