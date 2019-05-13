@@ -47,6 +47,8 @@ export default {
      */
     plugins: [
         '@/plugins/element-ui',
+        // debug:https://github.com/ElemeFE/element/issues/15261
+        // { src: '@/plugins/element-ui', ssr: false },
         '~/plugins/axios'
     ],
 
@@ -81,7 +83,8 @@ export default {
      */
     build: {
         transpile: [/^element-ui/],
-
+        // debug: https://juejin.im/post/5b7b637de51d45388c442a9a
+        extractCSS: { allChunks: true },
         /*
          ** You can extend webpack config here
          */
