@@ -8,10 +8,10 @@
                         <img alt="logo" src="//static2.cnodejs.org/public/images/cnodejs_light.svg">
                     </a>
                     <ul class="nav">
-                        <li :class="nav.path===$store.state.tab?'active':''" :key="nav.path" v-for="nav in tabs">
-                            <nuxt-link :to="'/?tab='+nav.path" role="button">{{nav.name}}</nuxt-link>
+                        <li :class="nav.path===$route.query.tab?'active':''" :key="nav.path" v-for="nav in tabs">
+                            <!-- <nuxt-link :to="'/?tab='+nav.path" role="button">{{nav.name}}</nuxt-link> -->
                             <!-- nuxt-link 走路由，只在client处理，要走server可以改为 <a :href="/test?tab=xxx">test</a> -->
-                            <!-- <a :href="'/?tab='+nav.path">{{nav.name}}</a> -->
+                            <a :href="'/?tab='+nav.path">{{nav.name}}</a>
                         </li>
                     </ul>
                 </div>
@@ -56,8 +56,7 @@
         },
         watch: {
             $route: function() {
-                // console.log('tab has changed.')
-                this.$store.commit('changeTab', this.$route.query.tab)
+                console.log('route has changed.')
             }
         }
     }

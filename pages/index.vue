@@ -25,13 +25,9 @@
 </template>
 
 <script>
-    // import Logo from '~/components/Logo.vue'
 
     export default {
-        watchQuery: ['page'],
-        // components: {
-        //     Logo
-        // },
+        watchQuery: ['page','tab'],
         data() {
             return {
                 tabs: [
@@ -56,9 +52,6 @@
                         path: 'share'
                     }
                 ],
-                // page: 1,
-                // limit: 20,
-                // list: [],
             }
         },
         filters: {
@@ -72,26 +65,16 @@
             }
         },
         mounted() {
-            // console.log('mounted');
-            // ajax
-            // this.getData()
-
-            // 自定义loading page
-            // this.$nextTick(() => {
-            //     this.$nuxt.$loading.start()
-            //     setTimeout(() => this.$nuxt.$loading.finish(), 1000)
-            // })
+            console.log('mounted');
         },
         watch: {
             $route: function() {
-                // console.log('$route has changed.')
-                // ajax
-                // this.getData()
+                console.log('$route has changed.')
             }
         },
         head() {
             let targetTab = this.tabs.filter(item=>{
-                return item.path == this.$store.state.tab
+                return item.path == this.$route.query.tab
             })
             return {
                 title: '首页  - ' + targetTab[0].name,
@@ -108,8 +91,9 @@
         // https://zh.nuxtjs.org/guide/async-data
         async asyncData({ app, store, query }) {
             console.log('asyncData start')
+            console.log(store.state);
             console.log(JSON.stringify(query))
-            let { data } = await app.$axios.$get(`/topics?tab=${store.state.tab || 'all'}&page=${store.state.page}&limit=${store.state.limit}`)
+            let { data } = await app.$axios.$get(`/topics?tab=${query.tab || 'all'}&page=${query.page || 1}&limit=20`)
             return { list: data }
         },
         // https://zh.nuxtjs.org/api/pages-fetch
@@ -118,21 +102,15 @@
             // store.commit('setStars', data)
         },
         methods: {
-            // ajax 无法服务端渲染
-            async getData() {
-                let { data } = await this.$axios.$get(
-                    `/topics?tab=${this.$store.state.tab || 'all'}&page=${this.$store.state.page}&limit=${this.$store.state.limit}`
-                )
-                // return {list: data}
-                this.list = data
-            },
             handleCurrentChange(val) {
-                console.log(val)
-                this.page = val;
-                this.$store.commit('changePage', val)
-                window.location.href = '/?page='+val
-                // this.$router.push({name:'index',query:{page:val}})
-                // this.getData()
+                window.location.href = '/?tab=' + this.$route.query.tab + '&page=' + val;
+                // this.$router.push({
+                //     path:'/',
+                //     query:{
+                //         tab:this.$route.query.tab,
+                //         page:val
+                //     }
+                // })
             }
         }
     }
